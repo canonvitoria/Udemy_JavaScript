@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fomulário</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <section class="container">
+        <h1>Fomulário de cadastro</h1>
+
+        <ul>
+            <li>Nenhum campo pode estar vazio</li>
+            <li>O campo "Usuário" só poderá conter letras e/ou números</li>
+            <li>O campo "Usuário" deverá ter entre 3 e 12 caracteres</li>
+            <li>O campo "Senha" preicsa ter entre 6 e 12 caracteres</li>
+        </ul>
+
+        <form action="/" method="post" class="formulario">
+
+            <label for="nome">Nome:</label>
+            <input type="text" class="nome validar">
+
+            <label for="sobrenome">Sobrenome:</label>
+            <input type="text" class="sobrenome validar">
+
+            <label for="cpf">CPF:</label>
+            <input type="text" class="cpf validar">
+
+            <label for="usuario">Usuário:</label>
+            <input type="text" class="usuario validar">
+
+            <label for="senha">Senha:</label>
+            <input type="password" class="senha validar">
+
+            <label for="repsenha">Repetir senha:</label>
+            <input type="password" class="repsenha validar">
+
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+    <script src="Terminal.js"></script>
+    <script src="ValidaCPF.js"></script>
+</body>
+</html>

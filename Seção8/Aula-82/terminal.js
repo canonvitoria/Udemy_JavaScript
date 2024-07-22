@@ -1,22 +1,24 @@
 // XMLHttpsRequest (GET) + Promises
 
-//xml = XMLHttpsRequest
+//xml = XMLHttpsRequest 
 //request = função que vai buscar algumas páginas
 
 
 const request  = obj => {
-    const xhr = new XMLHttpRequest();
-    xhr.open(obj.method, obj.url, true);
-    xhr.send();
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open(obj.method, obj.url, true);
+        xhr.send();
 
-    xhr.addEventListener('load', () => {
-        //Verficação
-        if (xhr.status >= 200 && xhr.status < 300) {
-            obj.success(xhr.responseText);
-        } else {
-            obj.error(xhr.statusText);
-        }
-    })
+        xhr.addEventListener('load', () => {
+            //Verficação
+            if (xhr.status >= 200 && xhr.status < 300) {
+                resolve(xhr.responseText);
+            } else {
+                reject(xhr.statusText);
+            }
+        })
+    });
    
     //Se fosse metodo POST, recebendo de um formulário
     //xhr.send('dados do formulario')
@@ -35,22 +37,29 @@ document.addEventListener('click', e => {
     }
 })
 
-function carregaPagina(element) {
+async function carregaPagina(element) {
     const href = element.getAttribute('href');
 
-    request({
+    const objConfig = {
         method: 'GET',
-        url: href,
-        success(response) {
-            carregaResultado(response);
-        },
-        error(errorText) {
-            console.log(errorText);
-        }
-    })
+        url: href
+    };
+
+    const response = await request(objConfig);
+    carregaResultado(response)
 }
 
 function carregaResultado(response) {
     const resultado = document.querySelector('.resultado');
     resultado.innerHTML = response;
 }
+
+// Fetch API (GET)
+
+fetch('pagina1.html', {})
+    .then(resposta => {
+        if(resposta.status !== 200) throw new Error('Erro 404 nosso')
+        return resposta.text();
+    })
+    .then(html => console.log(html))
+    .catch(e => console.error(e));
